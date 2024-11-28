@@ -1,10 +1,17 @@
-import { Client } from "discord.js";
+import { Client, GatewayIntentBits  } from "discord.js";
 import { commands } from "./commands";
 import { config } from "./config";
 import { deployCommands } from "./deploy-commands";
 
 export const client = new Client({
-  intents: ["Guilds", "GuildMessages", "DirectMessages"],
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildInvites,
+    GatewayIntentBits.GuildIntegrations,
+    GatewayIntentBits.DirectMessages
+  ],
 });
 
 client.on("guildCreate", async (guild) => {
