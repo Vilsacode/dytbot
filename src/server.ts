@@ -4,11 +4,12 @@ import { config } from './config'
 import { getChannelId, manageSubscription } from './twitch/api'
 import { getAccessToken } from './twitch/authent'
 import { verifySignature } from './twitch/utils'
+import { eventsFuncList } from './twitch/events'
 
 const app = express()
 app.use(bodyParser.json())
 
-app.post('/twitch/webhook', (req, res) => {
+app.post('/twitch/webhook', async (req, res) => {
   if(!verifySignature(req)) {
     console.log('Signature Invalide')
     res.status(403).send('Invalid signature')
@@ -27,7 +28,9 @@ app.post('/twitch/webhook', (req, res) => {
 
   if (messageType === 'notification') {
     const event = req.body.event
-    console.log(`${event.broadcaster_user_name} est en live`)
+    if (Object.keys(eventsFuncList).find(event.type)) {
+      await eventsFuncList[event.type](req, event)
+    }
     res.sendStatus(200)
     return
   }
