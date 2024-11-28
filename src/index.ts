@@ -1,6 +1,7 @@
 import {client as discord} from './discord'
 import { sendMessage } from './discord/action';
-import { config } from './discord/config';
+import { config } from './config';
+import { startServer } from './server';
 
 discord.once("ready", () => {
   const startingMessage = "DYTBot is ready! 🤖"
@@ -9,3 +10,5 @@ discord.once("ready", () => {
     sendMessage(config.DISCORD_CHANNEL_BOT, startingMessage)
   }
 });
+
+startServer().catch(err => console.error(err))

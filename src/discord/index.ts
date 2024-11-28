@@ -1,6 +1,6 @@
 import { Client, GatewayIntentBits  } from "discord.js";
 import { commands } from "./commands";
-import { config } from "./config";
+import { config } from "../config";
 import { deployCommands } from "./deploy-commands";
 
 export const client = new Client({

@@ -1,5 +1,5 @@
 import {client} from '.'
-import { config } from './config';
+import { config } from '../config';
 
 export const sendMessage = (channelName: string, message: string) => {
   const channel = client.channels.cache.get(channelName)
