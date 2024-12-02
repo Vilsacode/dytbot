@@ -1,7 +1,7 @@
 import WebSocket from 'ws'
 import { config } from '../config';
 import { getOAuthToken } from './authent';
-import { getUserIds } from './utils';
+import { getRandomArbitrary, getUserIds } from './utils';
 import { registerEventSubListeners, sendMessage } from './api';
 
 const commands = {
@@ -53,6 +53,14 @@ const handleWebSocketMessage = (data: any) => {
   }
 }
 
+const remindDiscord = (time: number) => {
+  setTimeout(() => {
+    console.log('Envoi du rappel Discord')
+    sendMessage(`N'oublie pas de rejoindre le serveur Discord : ${config.DISCORD_INVITE_URL}`)
+    remindDiscord(getRandomArbitrary(20, 40) * 60000)
+  }, time)
+}
+
 export const start = async () => {
   await getOAuthToken();
 
@@ -62,4 +70,6 @@ export const start = async () => {
   console.log(`Chat Channel User Id: ${config.TWITCH_CHAT_CHANNEL_USER_ID}`)
 
   startWebSocketClient()
+
+  remindDiscord(getRandomArbitrary(20, 40) * 60000)
 }

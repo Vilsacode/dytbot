@@ -42,3 +42,7 @@ export const getUserIds = async () => {
   config.TWITCH_BOT_USER_ID = botUser.id,
   config.TWITCH_CHAT_CHANNEL_USER_ID = channelUser.id
 }
+
+export const getRandomArbitrary = (min: number, max: number) => {
+  return Math.random() * (max - min) + min;
+}
