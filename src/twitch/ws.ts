@@ -4,6 +4,12 @@ import { getOAuthToken } from './authent';
 import { getUserIds } from './utils';
 import { registerEventSubListeners, sendMessage } from './api';
 
+const commands = {
+  'discord': config.DISCORD_INVITE_URL,
+  'github': config.GITHUB_URL,
+  'youtube': config.YOUTUBE_URL,
+}
+
 const startWebSocketClient = () => {
   const websocketClient = new WebSocket(config.TWITCH_EVENTSUB_WEBSOCKET_URL)
 
@@ -33,8 +39,12 @@ const handleWebSocketMessage = (data: any) => {
         console.log(`MSG #${data.payload.event.broadcaster_user_login} <${data.payload.event.chatter_user_login}> ${data.payload.event.message.text}`)
       }
 
-      if (data.payload.event.message.text.trim() === 'Hello') {
-        sendMessage('Hi')
+      if ((data.payload.event.message.text as string).startsWith('!')) {
+        const command = (data.payload.event.message.text as string).slice(1)
+        console.log(`Commande ${command} reçu`)
+        if (commands[command as keyof typeof commands] && commands[command as keyof typeof commands]) {
+          sendMessage(commands[command as keyof typeof commands] ?? 'Lien non implémenté')
+        }
       }
       break;
   
