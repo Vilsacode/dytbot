@@ -79,3 +79,52 @@ export const deleteSubscription = async (id: string) => {
 
   console.log('Souscription supprimée : ', response.status)
 }
+
+export const sendMessage = async (message: string) => {
+  const response = await axios.post('https://api.twitch.tv/helix/chat/messages', {
+    broadcaster_id: config.TWITCH_CHAT_CHANNEL_USER_ID,
+    sender_id: config.TWITCH_BOT_USER_ID,
+    message
+  }, {
+    headers: {
+      Authorization: `Bearer ${config.TWITCH_WS_OAUTH_TOKEN}`,
+      'Client-ID': config.TWITCH_CLIENT_ID,
+      'Content-Type': 'application/json'
+    }
+  })
+
+  if (response.status !== 200 ) {
+    console.error('Echec de l\'envoi du message')
+    console.error(response.data)
+  } else {
+    console.log(`Message envoyé : ${message}`)
+  }
+}
+
+export const registerEventSubListeners = async () => {
+  const response = await axios.post('https://api.twitch.tv/helix/eventsub/subscriptions', {
+    type: 'channel.chat.message',
+    version: '1',
+    condition: {
+      broadcaster_user_id: config.TWITCH_CHAT_CHANNEL_USER_ID,
+      user_id: config.TWITCH_BOT_USER_ID
+    },
+    transport: {
+      method: 'websocket',
+      session_id: config.TWITCH_WS_SESSION_ID
+    }
+  }, {
+    headers: {
+      Authorization: `Bearer ${config.TWITCH_WS_OAUTH_TOKEN}`,
+      'Client-ID': config.TWITCH_CLIENT_ID,
+      'Content-Type': 'application/json'
+    }
+  })
+
+  if (response.status !== 202) {
+    console.error('Echec de l\'inscription à EventSub')
+    console.error(response.data)
+  } else {
+    console.log('Inscrit à channel.chat.message')
+  }
+}
