@@ -1,7 +1,8 @@
 import WebSocket from 'ws'
 import { config } from '../config';
 import { getOAuthToken } from './authent';
-import { getRandomArbitrary, getUserIds } from './utils';
+import { getUserIds } from './utils';
+import { getRandomArbitrary } from '../utils'
 import { registerEventSubListeners, sendMessage } from './api';
 
 const commands = {
