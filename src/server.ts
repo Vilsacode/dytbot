@@ -25,11 +25,11 @@ app.post('/twitch/webhook', async (req, res) => {
     res.send(req.body.challenge)
     return
   }
-
+  
   if (messageType === 'notification') {
     const event = req.body.event
     console.log(`Evenement reçu: ${event.type}`)
-    if (Object.keys(eventsFuncList).find(event.type)) {
+    if (Object.keys(eventsFuncList).find(e => e === event.type)) {
       await eventsFuncList[event.type](req, event)
     }
     res.sendStatus(200)

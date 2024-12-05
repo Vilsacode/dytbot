@@ -27,14 +27,12 @@ const startWebSocketClient = () => {
 }
 
 const handleWebSocketMessage = (data: any) => {
-  console.log(`Message de type ${data.metadata.message_type} reçu`)
   switch (data.metadata.message_type) {
     case 'session_welcome':
       config.TWITCH_WS_SESSION_ID = data.payload.session.id
       registerEventSubListeners()
       break;
       case 'notification':
-      console.log(`Message de Souscription type ${data.metadata.subscription_type} reçu`)
       if (data.metadata.subscription_type === 'channel.chat.message') {
         console.log(`MSG #${data.payload.event.broadcaster_user_login} <${data.payload.event.chatter_user_login}> ${data.payload.event.message.text}`)
       }
