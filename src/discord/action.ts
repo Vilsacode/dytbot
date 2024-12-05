@@ -1,5 +1,7 @@
+import { AttachmentBuilder } from 'discord.js';
 import {client} from '.'
 import { config } from '../config';
+import { Canvas } from 'canvas';
 
 export const sendMessage = (channelName: string, message: string) => {
   const channel = client.channels.cache.get(channelName)
@@ -11,6 +13,22 @@ export const sendMessage = (channelName: string, message: string) => {
     throw new Error(`Channel ${channelName} is not Sendable`);
   }
   channel.send(message)
+}
+
+export const sendImage = (channelName: string, image: Canvas) => {
+  const channel = client.channels.cache.get(channelName)
+
+  if (!channel) {
+    throw new Error(`Channel ${channelName} not found`);
+  }
+  if (!channel.isSendable()) {
+    throw new Error(`Channel ${channelName} is not Sendable`);
+  }
+
+  const attachment = new AttachmentBuilder(image.createPNGStream(), { name: 'profile-image.png' });
+
+  channel.send({ files: [attachment] })
+  console.log('image envoyée')
 }
 
 export const assignRole = async (memberId: string, roleId: string) => {

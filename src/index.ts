@@ -4,7 +4,7 @@ import { config } from './config';
 import { startServer } from './server';
 import { start } from './twitch/ws'
 
-discord.once("ready", () => {
+discord.once("ready", async () => {
   const startingMessage = "DYTBot is ready! 🤖"
   console.log(startingMessage);
   if (config.DISCORD_CHANNEL_BOT) {
