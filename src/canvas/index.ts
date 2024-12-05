@@ -11,8 +11,7 @@ export const generateStreamLiveCard = async () => {
   context.font = '28px sans-serif'
   context.fillStyle = '#d60f34'
 
-  context.fillText(`@everyone le live commence`, 140, 80)
-  context.fillText(`https://www.twitch.tv/${config.TWITCH_CHANNEL_NAME}`, 140, 180)
+  context.fillText(`Le live commence`, 140, 80)
 
   return canvas
 }

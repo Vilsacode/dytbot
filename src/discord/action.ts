@@ -27,7 +27,7 @@ export const sendImage = (channelName: string, image: Canvas) => {
 
   const attachment = new AttachmentBuilder(image.createPNGStream(), { name: 'profile-image.png' });
 
-  channel.send({ files: [attachment] })
+  channel.send({content: `@everyone : Rejoint nous sur twitch : https://www.twitch.tv/${config.TWITCH_CHANNEL_NAME}`,  files: [attachment] })
   console.log('image envoyée')
 }
 
