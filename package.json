@@ -12,7 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/better-sqlite3": "^7.6.12",
     "axios": "^1.7.8",
+    "better-sqlite3": "^11.6.0",
     "body-parser": "^1.20.3",
     "canvas": "^2.11.2",
     "crypto": "^1.0.1",

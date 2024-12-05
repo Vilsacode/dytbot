@@ -5,6 +5,7 @@ import { startServer } from './server';
 import { start } from './twitch/ws'
 import { generateStreamLiveCard } from './canvas';
 
+import './database/migration'
 discord.once("ready", async () => {
   const startingMessage = "DYTBot is ready! 🤖"
   console.log(startingMessage);
