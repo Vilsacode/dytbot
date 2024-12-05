@@ -11,7 +11,7 @@ discord.once("ready", async () => {
   if (config.DISCORD_CHANNEL_BOT) {
     sendMessage(config.DISCORD_CHANNEL_BOT, startingMessage)
 
-    sendImage(config.DISCORD_CHANNEL_BOT, await generateStreamLiveCard())
+    sendImage(config.DISCORD_CHANNEL_BOT, await generateStreamLiveCard(), `@everyone : Rejoint nous sur twitch : https://www.twitch.tv/${config.TWITCH_CHANNEL_NAME}`)
   }
 });
 
