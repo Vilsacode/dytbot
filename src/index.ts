@@ -16,6 +16,6 @@ discord.once("ready", async () => {
   }
 });
 
-// startServer().catch(err => console.error(err))
+startServer().catch(err => console.error(err))
 
-// start()
+start()
