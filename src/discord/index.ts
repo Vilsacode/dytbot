@@ -22,7 +22,7 @@ client.on("guildCreate", async (guild) => {
 client.on('messageCreate', (message) => {
   try {
     if (message.author.id !== config.DISCORD_BOT_ID) {
-      console.log('Nouveau Message')
+      console.log(`Nouveau Message`)
       addXpForMessage(message)
       console.log('XP Ajouté')
     }
