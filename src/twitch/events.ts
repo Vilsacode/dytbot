@@ -13,7 +13,7 @@ interface EventsFuncList {
 
 const stream_online: EventFunc = async (req: Request, event) => {
   console.log(`${event.broadcaster_user_name} est en live`)
-  sendImage(config.DISCORD_CHANNEL_BOT, await generateStreamLiveCard(), `@everyone : Rejoint nous sur twitch : https://www.twitch.tv/${config.TWITCH_CHANNEL_NAME}`)
+  sendImage(config.DISCORD_CHANNEL_BOT, await generateStreamLiveCard(''), `@everyone, rejoignez-nous sur Twitch : https://www.twitch.tv/${config.TWITCH_CHANNEL_NAME}`)
 }
 
 export const eventsFuncList: EventsFuncList = {
