@@ -1,3 +1,6 @@
+import fs from 'fs'
+import http from 'http'
+import https from 'https'
 import express from 'express'
 import bodyParser from 'body-parser'
 import { config } from './config'
@@ -45,7 +48,27 @@ export const startServer = async () => {
 
   await manageSubscription('stream.online', { broadcaster_user_id: channelId })
 
-  app.listen(config.TWITCH_PORT, () => {
+  const httpServer = http.createServer(app);
+
+  if (config.APP_ENV === 'prod') {
+    // Certificate
+    const privateKey = fs.readFileSync(`${config.CERT_PATH}/privkey.pem`, 'utf8');
+    const certificate = fs.readFileSync(`${config.CERT_PATH}/cert.pem`, 'utf8');
+    const ca = fs.readFileSync(`${config.CERT_PATH}/chain.pem`, 'utf8');
+  
+    const credentials = {
+      key: privateKey,
+      cert: certificate,
+      ca: ca
+    };
+
+    const httpsServer = https.createServer(credentials, app);
+    httpsServer.listen(443, () => {
+      console.log('HTTPS Server running on port 443');
+    });
+  }
+
+  httpServer.listen(config.TWITCH_PORT, () => {
     console.log(`Server est en écoute sur le port : ${config.TWITCH_PORT}`)
-  })
+  });
 }

@@ -19,6 +19,8 @@ const {
   DISCORD_INVITE_URL,
   YOUTUBE_URL,
   GITHUB_URL,
+  APP_ENV,
+  CERT_PATH
 } = process.env;
 
 if (!DISCORD_TOKEN || !DISCORD_CLIENT_ID) {
@@ -32,6 +34,8 @@ export const config = {
     forgeron: 1308057542156619898,
     spectateur_elite: 1308058014179131443,
   },
+  APP_ENV: APP_ENV ?? 'dev',
+  CERT_PATH: CERT_PATH ?? '',
   DISCORD_TOKEN,
   DISCORD_BOT_ID: '1310622513872638154',
   DISCORD_CLIENT_ID,
