@@ -34,9 +34,18 @@ export const addXP = (userID: string, xp: number) => {
 export const levelUP = (userID: string) => {
   let user = get(userID)
   if (!user) {
-    throw `Création de l'utilisateur ${userID}`
+    throw `Utilisateur ${userID} non trouvé`
   }
 
   const newLevel = user.level + 1
   db.prepare('UPDATE users SET level = ? WHERE userID = ? ').run(newLevel, userID)
+}
+
+export const switchRole = (userID: string, role: string) => {
+  let user = get(userID)
+  if (!user) {
+    throw `Utilisateur ${userID} non trouvé`
+  }
+
+  db.prepare('UPDATE users SET role = ? WHERE userID = ? ').run(role, userID)
 }
